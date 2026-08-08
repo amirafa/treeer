@@ -235,47 +235,6 @@ transform(tree);
 console.log(printTree(tree).join("\n"));
 ```
 
-## Development
-
-```bash
-git clone <repository>
-cd treeer
-npm install
-```
-
-Build:
-
-```bash
-npm run build
-```
-
-Run directly:
-
-```bash
-npm run dev -- .
-```
-
-Test the compiled CLI:
-
-```bash
-node dist/cli.js .
-```
-
-## Publishing
-
-Build and verify the package:
-
-```bash
-npm run build
-npm pack
-```
-
-Publish:
-
-```bash
-npm publish
-```
-
 ## Why treeer?
 
 Large repositories can contain thousands of files, while AI agents often only need to understand the project's structure.
