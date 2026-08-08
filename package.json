@@ -1,12 +1,25 @@
 {
   "name": "@amirafa/treeer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AI-optimized project tree generator",
   "type": "module",
-  "bin": { "treeer": "./dist/cli.js" },
-  "exports": { ".": "./dist/index.js" },
-  "files": ["dist"],
-  "keywords": ["tree", "ai", "llm", "codebase", "repository", "context"],
+  "bin": {
+    "treeer": "./dist/cli.js"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "tree",
+    "ai",
+    "llm",
+    "codebase",
+    "repository",
+    "context"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsx src/cli.ts",
