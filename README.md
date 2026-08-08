@@ -314,7 +314,3 @@ The result uses less context and is easier for AI agents to process.
 * Git-aware mode
 * Changed-files-only mode
 * Improved token estimation
-
-## License
-
-MIT
