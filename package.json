@@ -1,5 +1,5 @@
 {
-  "name": "treeer",
+  "name": "@amirafa/treeer",
   "version": "1.0.0",
   "description": "AI-optimized project tree generator",
   "type": "module",
