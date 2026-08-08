@@ -26,19 +26,19 @@ It reduces repetitive filenames while preserving important files and directory s
 ### Global
 
 ```bash
-npm install -g treeer
+npm install -g @amirafa/treeer
 ```
 
 ### npx
 
 ```bash
-npx treeer .
+npx @amirafa/treeer .
 ```
 
 ### Library
 
 ```bash
-npm install treeer
+npm install @amirafa/treeer
 ```
 
 ## Usage
@@ -226,7 +226,7 @@ import {
   scanFileSystem,
   transform,
   printTree,
-} from "treeer";
+} from "@amirafa/treeer";
 
 const tree = scanFileSystem("./src");
 
