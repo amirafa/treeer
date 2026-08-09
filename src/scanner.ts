@@ -11,8 +11,18 @@ export function scanFileSystem(
   target: string,
   ignoredDirs: Set<string> = DEFAULT_IGNORED_DIRS,
 ): TreeNode {
-  const stat = fs.statSync(target);
+  let stat;
   const name = path.basename(target);
+
+  try {
+    stat = fs.statSync(target);
+  } catch (err) {
+    const e = err as NodeJS.ErrnoException;
+    if (e && e.code === "ENOENT") {
+      return { name, isFile: true, children: [] };
+    }
+    throw err;
+  }
 
   if (stat.isFile()) {
     return { name, isFile: true, children: [] };

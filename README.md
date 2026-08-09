@@ -273,3 +273,10 @@ The result uses less context and is easier for AI agents to process.
 * Git-aware mode
 * Changed-files-only mode
 * Improved token estimation
+
+## Changelog
+
+### 1.0.2 — 2026-08-09
+
+- Fix: Handle missing filesystem targets during scanning to avoid crashing on ENOENT (broken symlinks or removed files).
+

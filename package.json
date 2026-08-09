@@ -1,6 +1,6 @@
 {
   "name": "@amirafa/treeer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "AI-optimized project tree generator",
   "type": "module",
   "bin": {
