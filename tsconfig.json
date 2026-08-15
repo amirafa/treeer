@@ -5,7 +5,7 @@
     "moduleResolution": "NodeNext",
     "types": ["node"],
     "outDir": "dist",
-    "rootDir": "src",
+    "rootDir": ".",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -14,5 +14,5 @@
     "sourceMap": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts"]
+  "include": ["cli/**/*.ts", "core/**/*.ts", "mcp/**/*.ts"]
 }

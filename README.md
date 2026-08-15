@@ -19,7 +19,7 @@ It reduces repetitive filenames while preserving important files and directory s
 * 🧾 JSON output
 * 💾 Output to a file
 * 📚 TypeScript/JavaScript API
-* ⚡ Zero runtime dependencies
+* 🔌 MCP server for AI clients
 
 ## Installation
 
@@ -40,6 +40,23 @@ npx @amirafa/treeer .
 ```bash
 npm install @amirafa/treeer
 ```
+
+### MCP server
+
+Run the published MCP server without installing it globally:
+
+```bash
+npx --yes --package=@amirafa/treeer treeer-mcp
+```
+
+Or install the package globally:
+
+```bash
+npm install -g @amirafa/treeer
+treeer-mcp
+```
+
+The package includes the MCP SDK and `zod` as runtime dependencies.
 
 ## Usage
 
@@ -217,6 +234,65 @@ Options can be combined:
 treeer . -i tests,docs -f src -s -o tree.txt
 ```
 
+## MCP
+
+Configure an MCP client to launch the server with:
+
+```json
+{
+  "mcpServers": {
+    "treeer": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "--package=@amirafa/treeer",
+        "treeer-mcp"
+      ]
+    }
+  }
+}
+```
+
+The server exposes a `treeer` tool with these inputs:
+
+```json
+{
+  "input": ".",
+  "focus": "src",
+  "ignore": ["tests", "docs"],
+  "json": false,
+  "stats": true
+}
+```
+
+`input` can be a file path, directory path, or tree text. Paths are resolved from the MCP client's working directory.
+
+### Use in a project
+
+Create `.vscode/mcp.json` in the project where you want your agent to use treeer:
+
+```json
+{
+  "servers": {
+    "treeer": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "--package=@amirafa/treeer",
+        "treeer-mcp"
+      ],
+      "cwd": "${workspaceFolder}"
+    }
+  }
+}
+```
+
+After opening the project in VS Code, start the `treeer` server from the MCP server list. Your agent can then use the `treeer` tool with the project as its working directory:
+
+```text
+Use the treeer MCP tool to analyze this project with JSON output and statistics.
+```
+
 ## Library
 
 `treeer` can also be used programmatically:
@@ -275,6 +351,12 @@ The result uses less context and is easier for AI agents to process.
 * Improved token estimation
 
 ## Changelog
+
+### 1.0.3 — 2026-08-15
+
+- Add an MCP server powered by the treeer core functions.
+- Add the published `treeer-mcp` executable for MCP clients.
+- Document project-local VS Code MCP configuration and usage.
 
 ### 1.0.2 — 2026-08-09
 

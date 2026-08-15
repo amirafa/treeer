@@ -1,13 +1,14 @@
 {
   "name": "@amirafa/treeer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "AI-optimized project tree generator",
   "type": "module",
   "bin": {
-    "treeer": "./dist/cli.js"
+    "treeer": "./dist/cli/cli.js",
+    "treeer-mcp": "./dist/mcp/server.js"
   },
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/core/index.js"
   },
   "files": [
     "dist"
@@ -22,8 +23,14 @@
   ],
   "scripts": {
     "build": "tsc",
-    "dev": "tsx src/cli.ts",
-    "start": "node dist/cli.js"
+    "dev": "tsx cli/cli.ts",
+    "start": "node dist/cli/cli.js",
+    "mcp": "node dist/mcp/server.js",
+    "mcp:dev": "tsx mcp/server.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^22.20.1",

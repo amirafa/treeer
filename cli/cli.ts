@@ -5,11 +5,11 @@ import path from "node:path";
 import {
   applyFocus, formatStats, getStats, isTreeText, parseTree,
   printTree, scanFileSystem, transform,
-} from "./index.js";
-import { DEFAULT_IGNORED_DIRS } from "./constants.js";
-import type { TreeNode } from "./types.js";
+} from "../core/index.js";
+import { DEFAULT_IGNORED_DIRS } from "../core/constants.js";
+import type { TreeNode } from "../core/types.js";
 
-const VERSION = "1.0.0";
+const VERSION = "1.0.3";
 
 function help(): void {
   console.log(`
