@@ -363,7 +363,7 @@ The result uses less context and is easier for AI agents to process.
 
 ## Changelog
 
-### Unreleased
+### 1.0.4 — 2026-08-18
 
 - Add `-l` / `--level <depth>` to limit CLI tree output depth.
 - Add the optional `level` input to the MCP `treeer` tool.
