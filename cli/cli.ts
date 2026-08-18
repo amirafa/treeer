@@ -3,7 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import {
-  applyFocus, formatStats, getStats, isTreeText, parseTree,
+  applyFocus, formatStats, getStats, isTreeText, limitDepth, parseTree,
   printTree, scanFileSystem, transform,
 } from "../core/index.js";
 import { DEFAULT_IGNORED_DIRS } from "../core/constants.js";
@@ -22,6 +22,7 @@ Options:
   -o, --output <file>   Write output to a file
   -f, --focus <path>    Focus on a path
   -i, --ignore <dirs>   Comma-separated directories to ignore
+  -l, --level <depth>   Limit the tree to this depth
   -j, --json            Output JSON
   -s, --stats           Show AI statistics
       --no-stats        Hide statistics
@@ -35,6 +36,7 @@ Examples:
   treeer . -o ai-tree.txt
   treeer . --ignore tests,docs
   treeer . --focus src/components
+  treeer . -l 2
   treeer . --json
   treeer . --stats
 `);
@@ -58,7 +60,9 @@ function flag(args: string[], names: string[]): boolean {
 }
 
 function positionalInput(args: string[]): string | undefined {
-  const valueOptions = new Set(["-o", "--output", "-f", "--focus", "-i", "--ignore"]);
+  const valueOptions = new Set([
+    "-o", "--output", "-f", "--focus", "-i", "--ignore", "-l", "--level",
+  ]);
   for (let i = 0; i < args.length; i++) {
     if (args[i].startsWith("-")) {
       if (valueOptions.has(args[i])) i++;
@@ -95,6 +99,11 @@ try {
   const outputFile = option(args, ["-o", "--output"]);
   const focus = option(args, ["-f", "--focus"]);
   const ignoreArg = option(args, ["-i", "--ignore"]);
+  const levelArg = option(args, ["-l", "--level"]);
+  const maxDepth = levelArg === undefined ? undefined : Number(levelArg);
+  if (maxDepth !== undefined && (!Number.isInteger(maxDepth) || maxDepth < 1)) {
+    throw new Error("Depth must be a positive integer");
+  }
 
   const ignoredDirs = new Set(DEFAULT_IGNORED_DIRS);
   for (const dir of ignoreArg?.split(",").map((x) => x.trim()) ?? []) {
@@ -116,6 +125,7 @@ try {
   }
 
   tree = applyFocus(tree, focus);
+  if (maxDepth !== undefined) limitDepth(tree, maxDepth);
   if (!tree.isFile) transform(tree);
 
   let result = tree.isFile ? tree.name : printTree(tree).join("\n");

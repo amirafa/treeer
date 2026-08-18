@@ -163,6 +163,16 @@ or:
 treeer . -f src/components
 ```
 
+## Depth
+
+Limit output to a number of levels below the selected root. Depth `1` shows its
+immediate contents; this is applied after `--focus`, if provided.
+
+```bash
+treeer . -l 2
+treeer . --level 2 --focus src
+```
+
 ## Output
 
 Write the result to a file:
@@ -221,6 +231,7 @@ treeer <file|directory|tree.txt> [options]
 -o, --output <file>     Write output to a file
 -f, --focus <path>      Focus on a specific path
 -i, --ignore <dirs>     Ignore comma-separated directories
+-l, --level <depth>     Limit the tree to this depth
 -j, --json              Output JSON
 -s, --stats             Show statistics
     --no-stats          Hide statistics
@@ -231,7 +242,7 @@ treeer <file|directory|tree.txt> [options]
 Options can be combined:
 
 ```bash
-treeer . -i tests,docs -f src -s -o tree.txt
+treeer . -i tests,docs -f src -l 2 -s -o tree.txt
 ```
 
 ## MCP
@@ -260,6 +271,7 @@ The server exposes a `treeer` tool with these inputs:
   "input": ".",
   "focus": "src",
   "ignore": ["tests", "docs"],
+  "level": 2,
   "json": false,
   "stats": true
 }
@@ -344,13 +356,17 @@ The result uses less context and is easier for AI agents to process.
 * Configuration file
 * Custom grouping rules
 * Custom important-file patterns
-* Maximum depth
 * Additional output formats
 * Git-aware mode
 * Changed-files-only mode
 * Improved token estimation
 
 ## Changelog
+
+### Unreleased
+
+- Add `-l` / `--level <depth>` to limit CLI tree output depth.
+- Add the optional `level` input to the MCP `treeer` tool.
 
 ### 1.0.3 — 2026-08-15
 
@@ -361,4 +377,3 @@ The result uses less context and is easier for AI agents to process.
 ### 1.0.2 — 2026-08-09
 
 - Fix: Handle missing filesystem targets during scanning to avoid crashing on ENOENT (broken symlinks or removed files).
-

@@ -69,3 +69,15 @@ export function applyFocus(root: TreeNode, focus?: string): TreeNode {
   }
   return current;
 }
+
+/** Remove descendants below a depth relative to the supplied root. */
+export function limitDepth(root: TreeNode, maxDepth: number): void {
+  if (root.isFile || maxDepth === 0) {
+    root.children = [];
+    return;
+  }
+
+  for (const child of root.children) {
+    limitDepth(child, maxDepth - 1);
+  }
+}

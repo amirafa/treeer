@@ -10,6 +10,7 @@ import {
   formatStats,
   getStats,
   isTreeText,
+  limitDepth,
   parseTree,
   printTree,
   scanFileSystem,
@@ -31,11 +32,12 @@ server.registerTool(
       input: z.string().describe("Path to a file or directory, or tree text to parse."),
       focus: z.string().optional().describe("Path within the tree to return."),
       ignore: z.array(z.string()).optional().describe("Directory names to ignore in addition to defaults."),
+      level: z.number().int().positive().optional().describe("Maximum tree depth below the selected root."),
       json: z.boolean().optional().describe("Return the tree as JSON instead of text."),
       stats: z.boolean().optional().describe("Append AI token and reduction statistics."),
     },
   },
-  async ({ input, focus, ignore, json, stats }) => {
+  async ({ input, focus, ignore, level, json, stats }) => {
     try {
       const ignoredDirs = new Set(DEFAULT_IGNORED_DIRS);
       for (const directory of ignore ?? []) ignoredDirs.add(directory);
@@ -62,6 +64,7 @@ server.registerTool(
       }
 
       tree = applyFocus(tree, focus);
+      if (level !== undefined) limitDepth(tree, level);
       if (!tree.isFile) transform(tree);
 
       let result = json
